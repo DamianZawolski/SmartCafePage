@@ -31,8 +31,39 @@ function Profile() {
       console.error("Error logging out:", error.message);
     }
   }
+
+  //function that prints the data from the API to the console (API is https://smartcafeapi-1018869454751.europe-west10.run.app/user/list)
+  async function fetchData() {
+    const response = await fetch("https://smartcafeapi-1018869454751.europe-west10.run.app/user/list");
+    const data = await response.json();
+    console.log(data);
+    //prints the data in div (example object -{
+    //"address": "Mexico",
+    //"age": 42,
+    //"id": 2345,
+    //"name": "Test name 2"
+    //})
+    document.querySelector("ul").innerHTML = "";
+    data.forEach((element) => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <div>
+          <p>Address: ${element.address}</p>
+          <p>Age: ${element.age}</p>
+          <p>ID: ${element.id}</p>
+          <p>Name: ${element.name}</p>
+        </div>
+      `;
+      document.querySelector("ul").appendChild(li);
+    });
+    
+
+  }
+
+  
   return (
     <div>
+      
       {userDetails ? (
         <>
           <div style={{ display: "flex", justifyContent: "center" }}>
@@ -51,6 +82,11 @@ function Profile() {
           <button className="btn btn-primary" onClick={handleLogout}>
             Logout
           </button>
+          <button className="btn btn-primary" onClick={fetchData}>
+            Fetch Data
+          </button>
+          <h1>Data from API</h1>
+          <ul></ul>          
         </>
       ) : (
         <p>Loading...</p>

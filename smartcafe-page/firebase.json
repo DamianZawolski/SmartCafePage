@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "smartcafepwr",
     "public": "build",
     "ignore": [
       "firebase.json",
