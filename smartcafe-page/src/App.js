@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import {
@@ -10,11 +10,11 @@ import {
 
 import Login from "./components/login";
 import SignUp from "./components/register";
+import Profile from "./components/profile";
+import Navbar from "./components/navbar";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Profile from "./components/profile";
-import { useState } from "react";
 import { auth } from "./components/firebase";
 
 function App() {
@@ -23,10 +23,12 @@ function App() {
     auth.onAuthStateChanged((user) => {
       setUser(user);
     });
-  });
+  }, []);
+
   return (
     <Router>
       <div className="App">
+        <Navbar />
         <div className="auth-wrapper">
           <div className="auth-inner">
             <Routes>
